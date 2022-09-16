@@ -59,7 +59,7 @@ def detect(source, save_img=False):
     old_img_b = 1
 
     t0 = time.time()
-    for z, (path, img, im0s, vid_cap) in enumerate(dataset):
+    for z, (path, img, im0s, vid_cap) in enumerate(tqdm(dataset, leave=False)):
 
         img = torch.from_numpy(img).to(device)
         img = img.half() if half else img.float()  # uint8 to fp16/32
@@ -158,7 +158,10 @@ if __name__ == '__main__':
     with torch.no_grad():
         if opt.iterdir:
             p = Path(opt.source)
-            for pdir in tqdm(list(p.iterdir())):
+            list_of = list(p.iterdir())
+
+            for i, pdir in enumerate(tqdm(list_of)):
+                print(f'{i+1}/{len(list_of)}')
                 detect(pdir)
         else:
             detect(opt.source)
