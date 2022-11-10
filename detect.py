@@ -96,7 +96,7 @@ def detect(source, save_img=False):
             if opt.iterdir:
                 save_path = str(save_dir / str(p.parent).split('/')[-1] / p.name)
             else:
-                save_path = str(save_dir / p.name)
+                save_path = str(save_dir)
 
             Path(save_path).mkdir(exist_ok=True, parents=True)
 
@@ -117,8 +117,11 @@ def detect(source, save_img=False):
                     if conf < opt.conf_thres:
                         continue
 
-                    if (x2-x1)*(y2-y1) < 500:
+                    if (x2-x1) < 30 or (y2-y1) < 50:
                         continue
+
+                    # if (x2-x1)*(y2-y1) < 500:
+                    #     continue
 
                     # if (x2-x1)/(y2-y1) > 1.5:
                     #     continue
