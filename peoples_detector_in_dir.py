@@ -17,7 +17,7 @@ from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
 
 
-def yolo_detect_persons(source) -> dict[str, bool]:
+def yolo_detect_persons(source, device='gpu') -> dict[str, bool]:
     """
     python3 detect.py --weights yolov7.pt --classes 0 --conf-thres 0.5 --img-size 640 --device cpu  --source
     """
@@ -29,7 +29,6 @@ def yolo_detect_persons(source) -> dict[str, bool]:
     imgsz = 640
     trace = True
     project = 'runs/detect'
-    device = 'cpu'
     augment = False
     conf_thres = 0.5
     classes = 0
